@@ -52,9 +52,6 @@ class RunerResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('bib'),
-                Tables\Columns\ViewColumn::make('qr_code')
-                    ->label('QR Code')
-                    ->view('filament.columns.qr-code'),
             ])
             ->filters([
                 //
