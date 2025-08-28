@@ -52,16 +52,30 @@ class RunerResource extends Resource
 
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('bib'),
+                Tables\Columns\ViewColumn::make('qr_code')
+                    ->label('QR Code')
+                    ->view('filament.columns.qr-code'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('view_barcode')
+                    ->label('View Barcode')
+                    ->url(fn ($record) => route('runer.barcode', $record->id))
+                    ->openUrlInNewTab()
+                    ->icon('heroicon-o-eye'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('download_qr')
+                        ->label('Download QR')
+                        ->icon('heroicon-o-arrow-down-tray')
+                        ->action(function ($records) {
+                            // Implementasi download QR code untuk semua peserta yang dipilih
+                        }),
                 ]),
             ]);
     }
